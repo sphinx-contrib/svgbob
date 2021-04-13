@@ -1,14 +1,25 @@
-# `sphinxcontrib.svgbob` [![Stars](https://img.shields.io/github/stars/althonos/sphinxcontrib.svgbob.svg?style=social&maxAge=3600&label=Star)](https://github.com/althonos/sphinxcontrib.svgbob/stargazers)
+# `sphinxcontrib-svgbob` [![Stars](https://img.shields.io/github/stars/althonos/sphinxcontrib-svgbob.svg?style=social&maxAge=3600&label=Star)](https://github.com/althonos/sphinxcontrib-svgbob/stargazers)
 
 *A Sphinx extension to render ASCII diagrams into SVG using [Svgbob](https://github.com/ivanceras/svgbob).*
 
+
+[![Actions](https://img.shields.io/github/workflow/status/althonos/sphinxcontrib-svgbob/Test?style=flat-square&maxAge=600)](https://github.com/althonos/sphinxcontrib-svgbob/actions)
+[![AppVeyor](https://img.shields.io/appveyor/ci/althonos/sphinxcontrib-svgbob/master?logo=appveyor&style=flat-square&maxAge=600)](https://ci.appveyor.com/project/althonos/sphinxcontrib-svgbob)
+[![Codecov](https://img.shields.io/codecov/c/gh/althonos/sphinxcontrib-svgbob/master.svg?style=flat-square&maxAge=600)](https://codecov.io/gh/althonos/sphinxcontrib-svgbob)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&maxAge=2678400)](https://choosealicense.com/licenses/mit/)
-[![Source](https://img.shields.io/badge/source-GitHub-303030.svg?maxAge=2678400&style=flat-square)](https://github.com/althonos/sphinxcontrib.svgbob/)
-[![GitHub issues](https://img.shields.io/github/issues/althonos/sphinxcontrib.svgbob.svg?style=flat-square&maxAge=600)](https://github.com/althonos/sphinxcontrib.svgbob/issues)
+[![Source](https://img.shields.io/badge/source-GitHub-303030.svg?maxAge=2678400&style=flat-square)](https://github.com/althonos/sphinxcontrib-svgbob/)
+[![PyPI](https://img.shields.io/pypi/v/sphinxcontrib-svgbob.svg?style=flat-square&maxAge=600)](https://pypi.org/project/sphinxcontrib-svgbob)
+[![Wheel](https://img.shields.io/pypi/wheel/sphinxcontrib-svgbob.svg?style=flat-square&maxAge=2678400)](https://pypi.org/project/sphinxcontrib-svgbob/#files)
+[![Python Versions](https://img.shields.io/pypi/pyversions/sphinxcontrib-svgbob.svg?style=flat-square&maxAge=600)](https://pypi.org/project/sphinxcontrib-svgbob/#files)
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/sphinxcontrib-svgbob.svg?style=flat-square&maxAge=600)](https://pypi.org/project/sphinxcontrib-svgbob/#files)
+[![Changelog](https://img.shields.io/badge/keep%20a-changelog-8A0707.svg?maxAge=2678400&style=flat-square)](https://github.com/althonos/sphinxcontrib-svgbob/blob/master/CHANGELOG.md)
+[![GitHub issues](https://img.shields.io/github/issues/althonos/sphinxcontrib-svgbob.svg?style=flat-square&maxAge=600)](https://github.com/althonos/sphinxcontrib-svgbob/issues)
+[![Downloads](https://img.shields.io/badge/dynamic/json?style=flat-square&color=303f9f&maxAge=86400&label=downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Fsphinxcontrib-svgbob)](https://pepy.tech/project/sphinxcontrib-svgbob)
+
 
 ## 🗺️ Overview
 
-To include diagrams into Sphinx documentation, diagrams are commonly described
+Diagrams to be included into Sphinx documentation are commonly described
 with a dedicated markup language, and converted into an image by Sphinx when
 the documentation is built. However, this reduces the legibility of the
 documentation source for readers that are not browsing the HTML version.
@@ -18,6 +29,27 @@ in Rust that can convert ASCII diagrams into SVG. Using it allows you to:
 
 * Keep a textual version of the diagram in your documentation, so that it remains legible.
 * Render a nicer version as SVG for HTML or PDF versions of the documentation.
+
+This Sphinx extension builds Svgbob statically and lets you use it to render
+ASCII diagrams within Sphinx documentation. Since it does not require any external
+dependency, it's also suitable to use on [readthedocs.org](https://readthedocs.org).
+
+
+## 🔧 Installing
+
+`sphinxcontrib-svgbob` can be installed from [PyPI](https://pypi.org/project/sphinxcontrib-svgbob/),
+which hosts some pre-built CPython wheels for x86-64 Linux and OSX, as well as the code required
+to compile from source:
+```console
+$ pip install sphinxcontrib-svgbob
+```
+
+If a Rust compiler is not available, the `setup.py` script will attempt to
+install a temporary copy if the package is compiled on a UNIX system. If
+it doesn't work, see the
+[documentation on `rust-lang.org`](https://forge.rust-lang.org/other-installation-methods.html)
+to learn how to install Rust on your machine.
+
 
 ## 💡 Example
 
@@ -57,11 +89,11 @@ def hamming(x, y):
 When Sphinx (and `autodoc`) renders the docstring of this function, you'll get
 the following HTML page (here shown with the [Sphinx theme for readthedocs.org](https://github.com/readthedocs/sphinx_rtd_theme)):
 
-![example1.html.png](https://raw.githubusercontent.com/althonos/sphinxcontrib.svgbob/master/static/example1.html.png)
+![example1.html.png](https://raw.githubusercontent.com/althonos/sphinxcontrib-svgbob/master/static/example1.html.png)
 
 And yet, the `help(hamming)` will still look nice and helpful:
 
-![example1.console.png](https://raw.githubusercontent.com/althonos/sphinxcontrib.svgbob/master/static/example1.console.png)
+![example1.console.png](https://raw.githubusercontent.com/althonos/sphinxcontrib-svgbob/master/static/example1.console.png)
 
 
 ## 💭 Feedback
@@ -69,14 +101,14 @@ And yet, the `help(hamming)` will still look nice and helpful:
 ### ⚠️ Issue Tracker
 
 Found a bug ? Have an enhancement request ? Head over to the [GitHub issue
-tracker](https://github.com/althonos/sphinxcontrib.svgbob/issues) if you need to report
+tracker](https://github.com/althonos/sphinxcontrib-svgbob/issues) if you need to report
 or ask something. If you are filing in on a bug, please include as much
 information as you can about the issue, and try to recreate the same bug
 in a simple, easily reproducible situation.
 
 ### 🏗️ Contributing
 
-Contributions are more than welcome! See [`CONTRIBUTING.md`](https://github.com/althonos/sphinxcontrib.svgbob/blob/master/CONTRIBUTING.md) for more details.
+Contributions are more than welcome! See [`CONTRIBUTING.md`](https://github.com/althonos/sphinxcontrib-svgbob/blob/master/CONTRIBUTING.md) for more details.
 
 
 ## 📚 Alternatives
@@ -91,7 +123,7 @@ Contributions are more than welcome! See [`CONTRIBUTING.md`](https://github.com/
 
 ## 🔨 Credits
 
-`sphinxcontrib.svgbob` is developped and maintainted by:
+`sphinxcontrib-svgbob` is developped and maintainted by:
 - [Martin Larralde](https://github.com/althonos)
 
 The structure of this repository was adapted from the aforementioned
