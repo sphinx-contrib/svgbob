@@ -13,13 +13,13 @@ use pyo3::types::PyModule;
 
 #[pyfunction(
     "*",
-    font_size="14",
-    font_family = "\"monospace\"",
-    fill_color="\"black\"",
-    background="\"white\"",
-    stroke_color="\"black\"",
-    stroke_width="2.0",
-    scale="8.0",
+    font_size="None",
+    font_family = "None",
+    fill_color="None",
+    background="None",
+    stroke_color="None",
+    stroke_width="None",
+    scale="None",
     enhance_circuitries="true",
     include_backdrop="false",
     include_styles="true",
@@ -28,13 +28,13 @@ use pyo3::types::PyModule;
 fn to_svg(
     _py: Python,
     text: &str,
-    font_size: usize,
-    font_family: &str,
-    fill_color: &str,
-    background: &str,
-    stroke_color: &str,
-    stroke_width: f32,
-    scale: f32,
+    font_size: Option<usize>,
+    font_family: Option<&str>,
+    fill_color: Option<&str>,
+    background_color: Option<&str>,
+    stroke_color: Option<&str>,
+    stroke_width: Option<f32>,
+    scale: Option<f32>,
     enhance_circuitries: bool,
     include_backdrop: bool,
     include_styles: bool,
@@ -42,13 +42,27 @@ fn to_svg(
 ) -> PyResult<String> {
     let settings = {
         let mut s = svgbob::Settings::default();
-        s.font_size = font_size;
-        s.font_family = font_family.to_string();
-        s.fill_color = fill_color.to_string();
-        s.background = background.to_string();
-        s.stroke_color = stroke_color.to_string();
-        s.stroke_width = stroke_width;
-        s.scale = scale;
+        if let Some(fs) = font_size {
+            s.font_size = fs;
+        }
+        if let Some(ff) = font_family {
+            s.font_family = ff.to_string();
+        }
+        if let Some(fc) = fill_color {
+            s.fill_color = fc.to_string();
+        }
+        if let Some(bg) = background_color {
+            s.background = bg.to_string();
+        }
+        if let Some(sc) = stroke_color {
+            s.stroke_color = sc.to_string();
+        }
+        if let Some(sw) = stroke_width {
+            s.stroke_width = sw;
+        }
+        if let Some(sc) = scale {
+            s.scale = sc;
+        }
         s.enhance_circuitries = enhance_circuitries;
         s.include_backdrop = include_backdrop;
         s.include_styles = include_styles;
