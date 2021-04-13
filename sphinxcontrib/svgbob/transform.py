@@ -3,17 +3,17 @@ import os
 import pathlib
 import typing
 
-from docutils.nodes import image, SkipNode
-
-from sphinx.transforms import SphinxTransform
-from sphinx.locale import __
+import sphinx.transforms
+from docutils.nodes import image
 
 from ._svgbob import to_svg
 from .node import svgbob
 
 
+class SvgbobToImageTransform(sphinx.transforms.SphinxTransform):
+    """Sphinx transform to turn Svgbob nodes into SVG images.
+    """
 
-class SvgbobToImageTransform(SphinxTransform):
     default_priority = 10
 
     def apply(self, **kwargs: typing.Any) -> None:
