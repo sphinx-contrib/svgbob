@@ -27,87 +27,34 @@ class SvgbobToImageTransform(SphinxTransform):
             if "class" in node:
                 img["class"] = node["class"]
 
-            out = self.render(node)
-            img["uri"] = os.path.relpath(out, source)
+            options = {
+                "font_size": node["options"].get("font-size"),
+                "font_family": node["options"].get("font-family"),
+                "fill_color": node["options"].get("fill-color"),
+                "background_color": node["options"].get("background-color"),
+                "stroke_color": node["options"].get("stroke-color"),
+                "stroke_width": node["options"].get("stroke-width"),
+                "scale": node["options"].get("scale"),
+            }
 
+            out = self.render(node, options)
+            img["uri"] = os.path.relpath(out, source)
             node.replace_self(img)
 
-    def render(self, node: svgbob, prefix: str = "svgbob") -> pathlib.Path:
+    def render(
+        self,
+        node: svgbob,
+        options: typing.Dict[str, object],
+        prefix: str = "svgbob",
+    ) -> str:
         builder = self.app.builder
 
         hash = hashlib.sha1(node["code"].encode()).hexdigest()
         fname = "{}-{}.svg".format(prefix, hash)
-        outfn = pathlib.Path(builder.outdir).joinpath(builder.imagedir, fname)
+        outfile = os.path.join(builder.outdir, builder.imagedir, fname)
 
-        if outfn.is_file():
-            return outfn
+        os.makedirs(os.path.dirname(outfile), exist_ok=True)
+        with open(outfile, mode="w") as f:
+            f.write(to_svg(node["code"], **options))
 
-        outfn.parent.mkdir(parents=True, exist_ok=True)
-
-        with outfn.open(mode="w") as f:
-            f.write(to_svg(node["code"]))
-
-        # response = requests.post(kroki_url, json=payload, stream=True)
-        # response.raise_for_status()
-        # with outfn.open(mode="wb") as f:
-        #     for chunk in response.iter_content(chunk_size=128):
-        #         f.write(chunk)
-
-        return outfn
-
-
-        # try:
-        #     out = render_kroki(
-        #         builder, diagram_type, diagram_source, output_format, prefix
-        #     )
-        # except KrokiError as exc:
-        #     logger.warning(
-        #         __("kroki %s diagram (%s) with code %r: %s"),
-        #         diagram_type,
-        #         output_format,
-        #         diagram_source,
-        #         exc,
-        #     )
-        #     raise SkipNode from exc
-        #
-        # return out
-#
-#
-#
-# def render_kroki(
-#     builder: Builder,
-#     diagram_type: str,
-#     diagram_source: str,
-#     output_format: str,
-#     prefix: str = "kroki",
-# ) -> Path:
-#     kroki_url: str = builder.config.kroki_url
-#     payload: Dict[str, str] = {
-#         "diagram_source": diagram_source,
-#         "diagram_type": diagram_type,
-#         "output_format": output_format,
-#     }
-#
-#     hashkey = (str(kroki_url) + str(payload)).encode()
-#     fname = "%s-%s.%s" % (prefix, sha1(hashkey).hexdigest(), output_format)
-#     outfn = Path(builder.outdir).joinpath(builder.imagedir, fname)
-#
-#     if outfn.is_file():
-#         return outfn
-#
-#     try:
-#         outfn.parent.mkdir(parents=True, exist_ok=True)
-#
-#         response = requests.post(kroki_url, json=payload, stream=True)
-#         response.raise_for_status()
-#         with outfn.open(mode="wb") as f:
-#             for chunk in response.iter_content(chunk_size=128):
-#                 f.write(chunk)
-#
-#         return outfn
-#     except requests.exceptions.RequestException as e:
-#         raise KrokiError(__("kroki did not produce a diagram")) from e
-#     except IOError as e:
-#         raise KrokiError(
-#             __("Unable to write diagram to file %r") % outfn
-#         ) from e
+        return outfile
