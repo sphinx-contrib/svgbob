@@ -3,3 +3,5 @@ wheel
 setuptools-rust
 requests
 auditwheel
+coverage
+build
