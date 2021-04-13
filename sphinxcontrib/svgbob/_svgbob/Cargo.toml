@@ -38,3 +38,4 @@ version = "0.5.0-alpha.11"
 [features]
 default = []
 extension-module = ["pyo3/extension-module"]
+nightly = ["pyo3/nightly"]
