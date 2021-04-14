@@ -6,10 +6,11 @@ import shutil
 import subprocess
 import sys
 import urllib.request
-from distutils.errors import DistutilsPlatformError
 
 import setuptools
 import setuptools_rust
+from distutils.errors import DistutilsPlatformError
+from distutils.log import INFO
 from setuptools.command.sdist import sdist as _sdist
 from setuptools_rust.build import build_rust as _build_rust
 from setuptools_rust.utils import get_rust_version

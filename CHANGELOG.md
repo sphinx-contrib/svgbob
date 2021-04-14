@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/a46aa6e...HEAD
+[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.1.0...HEAD
+
+
+## [v0.1.0] - 2021-04-14
+[v0.1.0]: https://github.com/althonos/sphinxcontrib-svgbob/compare/a46aa6e...v0.1.0
 
 Initial release.

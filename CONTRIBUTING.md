@@ -4,12 +4,6 @@ For bug fixes or new features, please file an issue before submitting a
 pull request. If the change isn't trivial, it may be best to wait for
 feedback.
 
-## Rule 0: Don't be an asshole.
-
-[I didn't make that one up](https://en.wikipedia.org/wiki/The_No_Asshole_Rule),
-so let's try to make the Internet a better place . This can start right here
-in our day-to-day interactions while we build code.
-
 ## Setting up a local repository
 
 You can just clone the repository without needing any extra setup to get a
@@ -36,7 +30,7 @@ This project targets Python 3.6 or later.
 
 ### Type hints
 
-Python objects should be typed where applicable. For the Rust code, 
+Python objects should be typed where applicable. For the Rust code,
 an external type stub must be maintained; if the `to_svg` arguments
 are changed, or new arguments are added, make sure to update `_svgbob.pyi`
 as well.
