@@ -53,8 +53,9 @@ class SvgbobToImageTransform(sphinx.transforms.SphinxTransform):
         fname = "{}-{}.svg".format(prefix, hash)
         outfile = os.path.join(builder.outdir, builder.imagedir, fname)
 
-        os.makedirs(os.path.dirname(outfile), exist_ok=True)
-        with open(outfile, mode="w") as f:
-            f.write(to_svg(node["code"], **options))
+        if not os.path.exists(outfile):
+            os.makedirs(os.path.dirname(outfile), exist_ok=True)
+            with open(outfile, mode="w") as f:
+                f.write(to_svg(node["code"], **options))
 
         return outfile
