@@ -36,9 +36,10 @@ This project targets Python 3.6 or later.
 
 ### Type hints
 
-Python objects should be typed where applicable; the exception is the Rust
-compatibility layer, where it's acceptable that the `to_svg` function
-is not typed, since it's only used privately.
+Python objects should be typed where applicable. For the Rust code, 
+an external type stub must be maintained; if the `to_svg` arguments
+are changed, or new arguments are added, make sure to update `_svgbob.pyi`
+as well.
 
 ### Interfacing with Rust
 

@@ -3,6 +3,7 @@ include           CHANGELOG.md
 include           CONTRIBUTING.md
 include           COPYING
 include           pyproject.toml
+recursive-include sphinxcontrib/svgbob                *.pyi py.typed 
 recursive-include sphinxcontrib/svgbob/_svgbob        *.rs Cargo.toml Cargo.lock
 prune             sphinxcontrib/svgbob/_svgbob/target
 prune             tests

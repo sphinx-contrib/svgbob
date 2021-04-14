@@ -16,7 +16,7 @@ class SvgbobToImageTransform(sphinx.transforms.SphinxTransform):
 
     default_priority = 10
 
-    def builder_supports_svg(self):
+    def builder_supports_svg(self) -> bool:
         return 'image/svg+xml' in self.app.builder.supported_image_types
 
     def apply(self, **kwargs: typing.Any) -> None:
@@ -66,6 +66,6 @@ class SvgbobToImageTransform(sphinx.transforms.SphinxTransform):
         if not os.path.exists(outfile):
             os.makedirs(os.path.dirname(outfile), exist_ok=True)
             with open(outfile, mode="w") as f:
-                f.write(to_svg(node["code"], **options))
+                f.write(to_svg(node["code"], **options)) # type: ignore
 
         return outfile

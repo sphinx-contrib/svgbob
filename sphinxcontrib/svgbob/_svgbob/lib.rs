@@ -16,7 +16,7 @@ use pyo3::types::PyModule;
     font_size="None",
     font_family = "None",
     fill_color="None",
-    background="None",
+    background_color="None",
     stroke_color="None",
     stroke_width="None",
     scale="None",
