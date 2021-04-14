@@ -44,7 +44,7 @@ jobs:
       with:
         rust-version: nightly
     - name: Update CI requirements
-      run: python -m pip install -U -r .github/workflows/requirements.txt
+      run: python -m pip install -U -r ci/requirements.txt
     - name: Build extension
       run: python setup.py build_ext --inplace --debug
     - name: Test extension with coverage
@@ -94,7 +94,7 @@ jobs:
       with:
         rust-version: nightly
     - name: Update CI requirements
-      run: python -m pip install -U -r .github/workflows/requirements.txt
+      run: python -m pip install -U -r ci/requirements.txt
     - name: Build extension
       run: python setup.py build_ext --inplace --debug
     - name: Test extension with coverage
