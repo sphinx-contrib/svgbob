@@ -4,7 +4,7 @@
 
 
 [![Actions](https://img.shields.io/github/workflow/status/althonos/sphinxcontrib-svgbob/Test?style=flat-square&maxAge=600)](https://github.com/althonos/sphinxcontrib-svgbob/actions)
-[![AppVeyor](https://img.shields.io/appveyor/ci/althonos/sphinxcontrib-svgbob/master?logo=appveyor&style=flat-square&maxAge=600)](https://ci.appveyor.com/project/althonos/sphinxcontrib-svgbob)
+[![AppVeyor](https://img.shields.io/appveyor/ci/althonos/sphinxcontrib-svgbob/main?logo=appveyor&style=flat-square&maxAge=600)](https://ci.appveyor.com/project/althonos/sphinxcontrib-svgbob)
 [![Codecov](https://img.shields.io/codecov/c/gh/althonos/sphinxcontrib-svgbob/master.svg?style=flat-square&maxAge=600)](https://codecov.io/gh/althonos/sphinxcontrib-svgbob)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&maxAge=2678400)](https://choosealicense.com/licenses/mit/)
 [![Source](https://img.shields.io/badge/source-GitHub-303030.svg?maxAge=2678400&style=flat-square)](https://github.com/althonos/sphinxcontrib-svgbob/)
