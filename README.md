@@ -121,7 +121,7 @@ text in the diagram blocks:
    +-------+       +--------+
 ```
 
-![example2.svg](https://raw.githubusercontent.com/althonos/sphinxcontrib-svgbob/master/static/example2.console.png)
+![example2.svg](https://raw.githubusercontent.com/althonos/sphinxcontrib-svgbob/master/static/example2.svg)
 
 
 ## 💭 Feedback
