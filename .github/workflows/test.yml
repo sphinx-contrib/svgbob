@@ -35,6 +35,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v1
+    - name: Cache Rust target folder
+      uses: actions/cache@v2
+      with:
+        path: sphinxcontrib/svgbob/_svgbob/target
+        key: cargo
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -85,6 +90,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v1
+    - name: Cache Rust target folder
+      uses: actions/cache@v2
+      with:
+        path: sphinxcontrib/svgbob/_svgbob/target
+        key: cargo
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
