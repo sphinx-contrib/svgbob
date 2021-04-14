@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import configparser
 import os
 import shutil
 import subprocess
@@ -9,8 +10,25 @@ from distutils.errors import DistutilsPlatformError
 
 import setuptools
 import setuptools_rust
+from setuptools.command.sdist import sdist as _sdist
 from setuptools_rust.build import build_rust as _build_rust
 from setuptools_rust.utils import get_rust_version
+
+
+class sdist(_sdist):
+    """A `sdist` that generates a `pyproject.toml` on the fly.
+    """
+
+    def run(self):
+        # build `pyproject.toml` from `setup.cfg`
+        c = configparser.ConfigParser()
+        c.add_section("build-system")
+        c.set("build-system", "requires", str(self.distribution.setup_requires))
+        c.set("build-system", 'build-backend', '"setuptools.build_meta"')
+        with open("pyproject.toml", "w") as pyproject:
+            c.write(pyproject)
+        # run the rest of the packaging
+        _sdist.run(self)
 
 
 class build_rust(_build_rust):
@@ -66,9 +84,8 @@ class build_rust(_build_rust):
         ])
 
 
-
 setuptools.setup(
-    cmdclass=dict(build_rust=build_rust),
+    cmdclass=dict(build_rust=build_rust, sdist=sdist),
     rust_extensions=[
         setuptools_rust.RustExtension(
             "sphinxcontrib.svgbob._svgbob",
