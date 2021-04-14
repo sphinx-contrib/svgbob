@@ -34,16 +34,15 @@ class TestSphinx(unittest.TestCase):
         shutil.rmtree(cls.docs_folder)
 
     @classmethod
-    def build(cls):
+    def build(cls, builder="html"):
         sphinx.cmd.build.main([
             "-b",
-            "html",
+            builder,
             cls.docs_folder,
             os.path.join(cls.docs_folder, "_build"),
         ])
 
     def test_svgbob_directive(self):
-
         with open(os.path.join(self.docs_folder, "index.rst"), "w") as f:
             f.write(textwrap.dedent(r"""
             .. svgbob::
@@ -53,6 +52,5 @@ class TestSphinx(unittest.TestCase):
                 \---------/
             """))
 
-
-
         self.build()
+        self.build(builder="man")
