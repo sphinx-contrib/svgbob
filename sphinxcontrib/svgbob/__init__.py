@@ -6,7 +6,7 @@ from .directive import SvgbobDirective
 from .transform import SvgbobToImageTransform
 
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 
 def setup(app: Sphinx) -> typing.Dict[str, typing.Any]:
