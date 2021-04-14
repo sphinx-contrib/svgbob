@@ -96,6 +96,34 @@ And yet, the `help(hamming)` will still look nice and helpful:
 ![example1.console.png](https://raw.githubusercontent.com/althonos/sphinxcontrib-svgbob/master/static/example1.console.png)
 
 
+## 🔩 Configuration
+
+The `svgbob` directive supports the following arguments:
+
+- `font-size` (integer): the size of the text to be rendered, defaults to *14*.
+- `font-family`: the family of the font used to render the text, defaults to *monospace*.
+- `fill-color` (CSS color): the color to use to fill closed shapes.
+- `stroke-color` (CSS color): the color to use to paint strokes, defaults to *black*.
+- `scale` (float): the SVG scale of the figure, defaults to *8.0*.
+- `align` (CSS align value): the alignment of the resulting image.
+- `class` (HTML class): an arbitrary class to add to the resulting HTML element.
+
+For instance, use the following to use Arial with size 12, to render nicer
+text in the diagram blocks:
+
+```rst
+.. svgbob::
+   :font-family: Arial
+   :font-size: 12
+
+   +-------+       +--------+
+   | Hello |------>| World! |
+   +-------+       +--------+
+```
+
+![example2.svg](https://raw.githubusercontent.com/althonos/sphinxcontrib-svgbob/master/static/example2.console.png)
+
+
 ## 💭 Feedback
 
 ### ⚠️ Issue Tracker

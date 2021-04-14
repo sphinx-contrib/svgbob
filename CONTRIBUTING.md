@@ -34,8 +34,11 @@ $ python -m unittest discover -vv
 
 This project targets Python 3.6 or later.
 
+### Type hints
+
 Python objects should be typed where applicable; the exception is the Rust
-compatibility layer, where it's acceptable that the `to_svg` is not typed.
+compatibility layer, where it's acceptable that the `to_svg` function
+is not typed, since it's only used privately.
 
 ### Interfacing with Rust
 
