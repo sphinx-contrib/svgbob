@@ -3,5 +3,6 @@ wheel
 setuptools-rust
 requests
 auditwheel
-coverage
+coverage ~=5.0
 build
+sphinx
