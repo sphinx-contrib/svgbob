@@ -20,6 +20,45 @@ except ImportError:
     from setuptools_rust.utils import get_rust_version
 
 
+class vendor(setuptools.Command):
+
+    description = "vendor Rust dependencies into a local folder"
+    user_options = [
+        ("vendor-dir=", "d", "the path where to vendor the Rust crates")
+    ]
+
+    def initialize_options(self):
+        self.vendor_dir = None
+
+    def finalize_options(self):
+        if self.vendor_dir is None:
+            self.vendor_dir = "crates"
+
+    def run(self):
+        # make sure rust is available
+        _build_cmd = self.get_finalized_command("build_rust")
+        rustc = get_rust_version()
+        if rustc is None:
+            _build_cmd.setup_temp_rustc_unix(toolchain="stable", profile="minimal")
+        # vendor crates
+        path = next(ext.path for ext in self.distribution.rust_extensions)
+        proc = subprocess.run(["cargo", "vendor", self.vendor_dir, "--manifest-path", path])
+        proc.check_returncode()
+        # write the cargo config file
+        self.mkpath(".cargo")
+        with open(os.path.join(".cargo", "config.toml"), "w") as f:
+            f.write(
+                """
+                [source.crates-io]
+                replace-with = "vendored-sources"
+
+                [source.vendored-sources]
+                directory = "{}"
+                """.format(self.vendor_dir)
+            )
+
+
+
 class sdist(_sdist):
     """A `sdist` that generates a `pyproject.toml` on the fly.
     """
@@ -93,7 +132,7 @@ class build_rust(_build_rust):
 
 
 setuptools.setup(
-    cmdclass=dict(build_rust=build_rust, sdist=sdist),
+    cmdclass=dict(build_rust=build_rust, sdist=sdist, vendor=vendor),
     rust_extensions=[
         setuptools_rust.RustExtension(
             "sphinxcontrib.svgbob._svgbob",
