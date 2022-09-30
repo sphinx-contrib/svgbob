@@ -10,6 +10,7 @@ use pyo3::prelude::pymodule;
 use pyo3::prelude::pyfunction;
 use pyo3::wrap_pyfunction;
 use pyo3::types::PyModule;
+use pyo3_built::pyo3_built;
 
 #[pyfunction(
     "*",
@@ -72,11 +73,12 @@ fn to_svg(
     Ok(svgbob::to_svg_with_settings(text, &settings))
 }
 
-#[cfg_attr(feature = "extension-module", pymodule(_svgbob))]
+#[cfg_attr(feature = "extension-module", pymodule)]
+#[cfg_attr(feature = "extension-module", pyo3(name = "_svgbob"))]
 pub fn init(py: Python, m: &PyModule) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add("__author__", env!("CARGO_PKG_AUTHORS").replace(':', "\n"))?;
-    m.add("__build__", pyo3_built::pyo3_built!(py, built))?;
+    m.add("__build__", pyo3_built!(py, built))?;
 
     m.add_function(wrap_pyfunction!(to_svg, m)?)?;
 
