@@ -13,7 +13,11 @@ from distutils.errors import DistutilsPlatformError
 from distutils.log import INFO
 from setuptools.command.sdist import sdist as _sdist
 from setuptools_rust.build import build_rust as _build_rust
-from setuptools_rust.utils import get_rust_version
+
+try:
+    from setuptools_rust.rustc_info import get_rust_version
+except ImportError:
+    from setuptools_rust.utils import get_rust_version
 
 
 class sdist(_sdist):
@@ -48,7 +52,7 @@ class build_rust(_build_rust):
         if self.inplace:
             self.extensions[0].strip = setuptools_rust.Strip.No
         if nightly:
-            self.extensions[0].features.append("nightly")
+            self.extensions[0].features = (*self.extensions[0].features, "nightly")
 
         _build_rust.run(self)
 
