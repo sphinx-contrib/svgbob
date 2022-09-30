@@ -33,7 +33,7 @@ version = "0.17.1"
 [dependencies.pyo3-built]
 version = "0.4.7"
 [dependencies.svgbob]
-version = "0.5.0-alpha.11"
+version = "0.6.7"
 
 [features]
 default = []

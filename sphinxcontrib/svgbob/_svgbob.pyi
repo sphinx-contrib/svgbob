@@ -13,5 +13,6 @@ def to_svg(
     include_backdrop: bool = False,
     include_styles: bool = True,
     include_defs: bool = True,
+    merge_line_with_shapes: bool = False,
 ) -> str:
     ...

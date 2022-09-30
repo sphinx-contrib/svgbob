@@ -24,7 +24,8 @@ use pyo3_built::pyo3_built;
     enhance_circuitries="true",
     include_backdrop="false",
     include_styles="true",
-    include_defs="true"
+    include_defs="true",
+    merge_line_with_shapes="false",
 )]
 fn to_svg(
     _py: Python,
@@ -40,6 +41,7 @@ fn to_svg(
     include_backdrop: bool,
     include_styles: bool,
     include_defs: bool,
+    merge_line_with_shapes: bool,
 ) -> PyResult<String> {
     let settings = {
         let mut s = svgbob::Settings::default();
@@ -68,6 +70,7 @@ fn to_svg(
         s.include_backdrop = include_backdrop;
         s.include_styles = include_styles;
         s.include_defs = include_defs;
+        s.merge_line_with_shapes = merge_line_with_shapes;
         s
     };
     Ok(svgbob::to_svg_with_settings(text, &settings))
