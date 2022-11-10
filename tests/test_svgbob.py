@@ -12,4 +12,11 @@ class TestSvgbob(unittest.TestCase):
             \-------/
         """
         svg = to_svg(text)
-        print(svg)
+
+    def test_to_svg_unicode(self):
+        text = r"""
+            ┌───────┐
+            │ Hello │
+            └───────┘
+        """
+        svg = to_svg(text)
