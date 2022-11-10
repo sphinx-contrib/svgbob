@@ -6,7 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.1...HEAD
+
+
+## [v0.2.1] - 2022-11-10
+[v0.2.1]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.0...v0.2.1
+
+### Fixed
+- Allow using Unicode box characters instead of ASCII ([#2](https://github.com/sphinx-contrib/svgbob/issues/2)).
+
+### Added 
+- Support for Python 3.11.
 
 
 ## [v0.2.0] - 2022-09-30

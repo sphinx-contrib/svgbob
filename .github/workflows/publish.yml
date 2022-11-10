@@ -31,6 +31,8 @@ jobs:
         options: -v ${{ github.workspace }}:/io -e TERM=$TERM
         shell: bash
         run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh /dev/stdin -y
+          source "$HOME/.cargo/env"
           ${{ env.pyo3-python }} -m pip install -U -r /io/ci/requirements.txt
           ${{ env.pyo3-python }} -m pip wheel -vv /io -w /tmp
           for whl in /tmp/sphinxcontrib*.whl; do ${{ env.pyo3-python }} -m auditwheel repair $whl -w /io/dist; done
