@@ -27,20 +27,22 @@ class TestSphinx(unittest.TestCase):
             "master": "index",
             "makefile": True,
             "batchfile": True,
-        })
+            "extensions": ["sphinxcontrib.svgbob"],
+        }, silent=True)
 
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(cls.docs_folder)
 
-    @classmethod
-    def build(cls, builder="html"):
-        sphinx.cmd.build.main([
+    def build(self, builder="html"):
+        retcode = sphinx.cmd.build.main([
+            "-q",
             "-b",
             builder,
-            cls.docs_folder,
-            os.path.join(cls.docs_folder, "_build"),
+            self.docs_folder,
+            os.path.join(self.docs_folder, "_build"),
         ])
+        self.assertEqual(retcode, 0)
 
     def test_svgbob_directive(self):
         with open(os.path.join(self.docs_folder, "index.rst"), "w") as f:
