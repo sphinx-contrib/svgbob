@@ -7,120 +7,228 @@ on:
 
 jobs:
 
-  wheel-linux:
-    runs-on: ubuntu-latest
-    name: Build Linux wheels(${{ matrix.image }})
+  wheel-linux-aarch64:
+    name: Build Linux wheels (Aarch64)
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        #image: [quay.io/pypa/manylinux2014_x86_64, quay.io/pypa/manylinux2014_aarch64]
-        image: [quay.io/pypa/manylinux2014_x86_64]
-        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310, cp311-cp311, cp312-cp312]
-    env:
-      pyo3-python: /opt/python/${{ matrix.python-version }}/bin/python
+        python-tag:
+        - cp37-manylinux_aarch64
+        - cp38-manylinux_aarch64
+        - cp39-manylinux_aarch64
+        - cp310-manylinux_aarch64
+        - cp311-manylinux_aarch64
+        - cp312-manylinux_aarch64
+        - pp37-manylinux_aarch64
+        - pp38-manylinux_aarch64
+        - pp39-manylinux_aarch64
+        - pp310-manylinux_aarch64
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Set up QEMU
-      if: matrix.image == 'quay.io/pypa/manylinux2014_aarch64'
       id: qemu
-      uses: docker/setup-qemu-action@v1
+      uses: docker/setup-qemu-action@v2
+      with:
+        platforms: all
     - name: Build manylinux wheels
-      uses: addnab/docker-run-action@v2
-      with:
-        image: ${{ matrix.image }}
-        options: -v ${{ github.workspace }}:/io -e TERM=$TERM
-        shell: bash
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh /dev/stdin -y
-          source "$HOME/.cargo/env"
-          ${{ env.pyo3-python }} -m pip install -U -r /io/ci/requirements.txt
-          ${{ env.pyo3-python }} -m pip wheel -vv /io -w /tmp
-          for whl in /tmp/sphinxcontrib*.whl; do ${{ env.pyo3-python }} -m auditwheel repair $whl -w /io/dist; done
-    - name: Store built wheels
-      uses: actions/upload-artifact@v2
-      with:
-          name: wheels
-          path: dist/*
-
-  wheel-macos:
-    runs-on: macos-latest
-    name: Build MacOS wheels
-    strategy:
-      matrix:
-        python-version:
-        - "3.7"
-        - "3.8"
-        - "3.9"
-        - "3.10"
-        - "3.11"
-        - "3.12"
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install build package
-      run: python -m pip install -U -r ci/requirements.txt
-    - name: Build wheel distribution
-      run: python setup.py bdist_wheel
+      uses: pypa/cibuildwheel@v2.19.1
       env:
-        MACOSX_DEPLOYMENT_TARGET: 10.9
-    - name: Store built wheels
-      uses: actions/upload-artifact@v2
+        CIBW_ARCHS: aarch64
+        CIBW_BUILD: ${{ matrix.python-tag }}
+        CIBW_BEFORE_ALL: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh /dev/stdin -y"
+        CIBW_BEFORE_BUILD: "pip install setuptools-rust"
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_ENVIRONMENT: CARGO_NET_GIT_FETCH_WITH_CLI=true
       with:
-          name: wheels
-          path: dist/*
+        output-dir: dist
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist/*
 
-  wheel-win32:
-    runs-on: windows-latest
-    name: Build Windows wheels
+  wheel-linux-x86_64:
+    name: Build Linux wheels (x86-64)
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version:
-        - "3.7"
-        - "3.8"
-        - "3.9"
-        - "3.10"
-        - "3.11"
-        - "3.12"
+        python-tag:
+        - cp37-manylinux_x86_64
+        - cp38-manylinux_x86_64
+        - cp39-manylinux_x86_64
+        - cp310-manylinux_x86_64
+        - cp311-manylinux_x86_64
+        - cp312-manylinux_x86_64
+        - pp37-manylinux_x86_64
+        - pp38-manylinux_x86_64
+        - pp39-manylinux_x86_64
+        - pp310-manylinux_x86_64
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
+    - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Build manylinux wheels
+      uses: pypa/cibuildwheel@v2.19.1
+      env:
+        CIBW_ARCHS: x86_64
+        CIBW_BUILD: ${{ matrix.python-tag }}
+        CIBW_BEFORE_ALL: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh /dev/stdin -y"
+        CIBW_BEFORE_BUILD: "pip install setuptools-rust"
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_ENVIRONMENT: CARGO_NET_GIT_FETCH_WITH_CLI=true
+      with:
+        output-dir: dist
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist/*
+
+  wheel-macos-x86_64:
+    name: Build MacOS wheels (x86-64)
+    runs-on: macOS-12
+    strategy:
+      matrix:
+        python-tag:
+        - cp37-macosx_x86_64
+        - cp38-macosx_x86_64
+        - cp39-macosx_x86_64
+        - cp310-macosx_x86_64
+        - cp311-macosx_x86_64
+        - cp312-macosx_x86_64
+        - pp37-macosx_x86_64
+        - pp38-macosx_x86_64
+        - pp39-macosx_x86_64
+        - pp310-macosx_x86_64
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Build manylinux wheels
+      uses: pypa/cibuildwheel@v2.19.1
+      env:
+        CIBW_ARCHS: x86_64
+        CIBW_BUILD: ${{ matrix.python-tag }}
+        CIBW_BEFORE_ALL: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh /dev/stdin -y"
+        CIBW_BEFORE_BUILD: "pip install setuptools-rust"
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_ENVIRONMENT: CARGO_NET_GIT_FETCH_WITH_CLI=true
+        CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=12.0
+      with:
+        output-dir: dist
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist/*
+
+  wheel-macos-aarch64:
+    name: Build MacOS wheels (Aarch64)
+    runs-on: macOS-11
+    strategy:
+      matrix:
+        python-tag:
+        - cp38-macosx_arm64
+        - cp39-macosx_arm64
+        - cp310-macosx_arm64
+        - cp311-macosx_arm64
+        - cp312-macosx_arm64
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+        target: aarch64-apple-darwin
+    - name: Build manylinux wheels
+      uses: pypa/cibuildwheel@v2.19.1
+      env:
+        CIBW_ARCHS: arm64
+        CIBW_BUILD: ${{ matrix.python-tag }}
+        CIBW_BEFORE_ALL: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh /dev/stdin -y"
+        CIBW_BEFORE_BUILD: "pip install setuptools-rust"
+        CIBW_BUILD_VERBOSITY: 2
+        CIBW_ENVIRONMENT: CARGO_NET_GIT_FETCH_WITH_CLI=true
+        CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=12.0
+      with:
+        output-dir: dist
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist/*
+
+  wheel-win32-x86_64:
+    name: Build Windows wheels (x86-64)
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        python-tag:
+        - cp37-win_amd64
+        - cp38-win_amd64
+        - cp39-win_amd64
+        - cp310-win_amd64
+        - cp311-win_amd64
+        - cp312-win_amd64
+        - pp37-win_amd64
+        - pp38-win_amd64
+        - pp39-win_amd64
+        - pp310-win_amd64
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Build manylinux wheels
+      uses: pypa/cibuildwheel@v2.19.1
+      env:
+        CIBW_ARCHS: AMD64
+        CIBW_BUILD: ${{ matrix.python-tag }}
+        CIBW_BEFORE_BUILD: "pip install setuptools-rust"
+        CIBW_BUILD_VERBOSITY: 2
+      with:
+        output-dir: dist
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist/*
+
+  sdist:
+    runs-on: ubuntu-latest
+    name: Build source distribution
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Set up Python 3.11
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install build package
-      run: python -m pip install -U -r ci/requirements.txt
-    - name: Build wheel distribution
-      run: python setup.py bdist_wheel
-    - name: Store built wheels
+        python-version: 3.11
+    - name: Install CI requirements
+      run: python -m pip install -U -r .github/workflows/requirements.txt
+    - name: Build source distribution without vendored sources
+      run: python setup.py sdist
+    - name: Store built source distribution
       uses: actions/upload-artifact@v2
       with:
-          name: wheels
-          path: dist/*
+        name: wheels
+        path: dist/*
 
   upload:
     environment: PyPI
     runs-on: ubuntu-latest
     name: Upload
+    permissions:
+      id-token: write
     needs:
-    - wheel-linux
-    - wheel-macos
-    - wheel-win32
+    - sdist
+    - wheel-linux-aarch64
+    - wheel-linux-x86_64
+    - wheel-macos-aarch64
+    - wheel-macos-x86_64
+    - wheel-win32-x86_64
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v1
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v1
-      with:
-        python-version: "3.12"
-    - name: Install CI requirements
-      run: python -m pip install -U -r ci/requirements.txt
-    - name: Build source tarball with vendored sources
-      run: python setup.py vendor sdist
     - name: Download built wheels
       uses: actions/download-artifact@v2
       with:
@@ -128,16 +236,12 @@ jobs:
         path: dist
     - name: Publish distributions to PyPI
       if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
-        skip_existing: true
+      uses: pypa/gh-action-pypi-publish@release/v1
 
   release:
     environment: GitHub Releases
     runs-on: ubuntu-latest
-    if: "startsWith(github.ref, 'refs/tags/v')"
+    if: "!contains(github.ref, 'rc')"
     name: Release
     needs: upload
     steps:
@@ -147,3 +251,4 @@ jobs:
       uses: rasmus-saks/release-a-changelog-action@v1.0.1
       with:
         github-token: '${{ secrets.GITHUB_TOKEN }}'
+
