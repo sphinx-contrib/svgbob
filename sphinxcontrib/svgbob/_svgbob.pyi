@@ -9,10 +9,8 @@ def to_svg(
     stroke_color: Optional[str] = None,
     stroke_width: Optional[float] = None,
     scale: Optional[float] = None,
-    enhance_circuitries: bool = True,
     include_backdrop: bool = False,
     include_styles: bool = True,
     include_defs: bool = True,
-    merge_line_with_shapes: bool = False,
 ) -> str:
     ...
