@@ -21,11 +21,9 @@ use pyo3_built::pyo3_built;
     stroke_color="None",
     stroke_width="None",
     scale="None",
-    enhance_circuitries="true",
     include_backdrop="false",
     include_styles="true",
     include_defs="true",
-    merge_line_with_shapes="false",
 )]
 fn to_svg(
     _py: Python,
@@ -37,11 +35,9 @@ fn to_svg(
     stroke_color: Option<&str>,
     stroke_width: Option<f32>,
     scale: Option<f32>,
-    enhance_circuitries: bool,
     include_backdrop: bool,
     include_styles: bool,
     include_defs: bool,
-    merge_line_with_shapes: bool,
 ) -> PyResult<String> {
     let settings = {
         let mut s = svgbob::Settings::default();
@@ -66,11 +62,9 @@ fn to_svg(
         if let Some(sc) = scale {
             s.scale = sc;
         }
-        s.enhance_circuitries = enhance_circuitries;
         s.include_backdrop = include_backdrop;
         s.include_styles = include_styles;
         s.include_defs = include_defs;
-        s.merge_line_with_shapes = merge_line_with_shapes;
         s
     };
     Ok(svgbob::to_svg_with_settings(text, &settings))
