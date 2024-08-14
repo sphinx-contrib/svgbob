@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.3.0...HEAD
+
+
+## [v0.3.0] - 2024-08-14
+[v0.3.0]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.1...v0.3.0
+
+### Added
+- Support for Python 3.12 ([#4](https://github.com/sphinx-contrib/svgbob/issues/4), by [@maffoo](https://github.com/maffoo)).
+
+### Changed
+- Bumped `svgbob` dependency to `v0.7.2`.
+
+### Removed
+- `enhance_circuitries` and `merge_line_with_shapes` directives.
 
 
 ## [v0.2.1] - 2022-11-10
