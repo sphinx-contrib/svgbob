@@ -3,7 +3,7 @@
 *A Sphinx extension to render ASCII diagrams into SVG using [Svgbob](https://github.com/ivanceras/svgbob).*
 
 
-[![Actions](https://img.shields.io/github/workflow/status/sphinx-contrib/svgbob/Test?style=flat-square&maxAge=600)](https://github.com/sphinx-contrib/svgbob/actions)
+[![Actions](https://img.shields.io/github/actions/workflow/status/sphinx-contrib/svgbob/test.yml?style=flat-square&maxAge=600)](https://github.com/sphinx-contrib/svgbob/actions)
 [![Codecov](https://img.shields.io/codecov/c/gh/sphinx-contrib/svgbob/master.svg?style=flat-square&maxAge=600)](https://codecov.io/gh/sphinx-contrib/svgbob)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&maxAge=2678400)](https://choosealicense.com/licenses/mit/)
 [![Source](https://img.shields.io/badge/source-GitHub-303030.svg?maxAge=2678400&style=flat-square)](https://github.com/sphinx-contrib/svgbob/)
@@ -13,7 +13,7 @@
 [![PyPI - Implementation](https://img.shields.io/pypi/implementation/sphinxcontrib-svgbob.svg?style=flat-square&maxAge=600)](https://pypi.org/project/sphinxcontrib-svgbob/#files)
 [![Changelog](https://img.shields.io/badge/keep%20a-changelog-8A0707.svg?maxAge=2678400&style=flat-square)](https://github.com/sphinx-contrib/svgbob/blob/master/CHANGELOG.md)
 [![GitHub issues](https://img.shields.io/github/issues/sphinx-contrib/svgbob.svg?style=flat-square&maxAge=600)](https://github.com/sphinx-contrib/svgbob/issues)
-[![Downloads](https://img.shields.io/badge/dynamic/json?style=flat-square&color=303f9f&maxAge=86400&label=downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Fsphinxcontrib-svgbob)](https://pepy.tech/project/sphinxcontrib-svgbob)
+[![Downloads](https://img.shields.io/pypi/dm/sphinxcontrib-svgbob?style=flat-square&color=303f9f&maxAge=86400&label=downloads)](https://pepy.tech/project/sphinxcontrib-svgbob)
 
 
 ## 🗺️ Overview
