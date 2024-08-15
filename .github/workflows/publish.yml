@@ -225,6 +225,7 @@ jobs:
   release:
     environment: GitHub Releases
     runs-on: ubuntu-latest
+    permissions: write-all
     if: "!contains(github.ref, 'rc')"
     name: Release
     needs: upload
