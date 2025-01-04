@@ -67,7 +67,7 @@ fn to_svg(
     Ok(svgbob::to_svg_with_settings(text, &settings))
 }
 
-#[cfg_attr(feature = "extension-module", pymodule(name = "_svgbob"))]
+#[pymodule(name = "_svgbob")]
 pub fn init(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add("__author__", env!("CARGO_PKG_AUTHORS").replace(':', "\n"))?;
