@@ -1,29 +1,27 @@
-extern crate pyo3;
-extern crate pyo3_built;
-extern crate svgbob;
-
 mod built;
 
+use pyo3::prelude::*;
+
+use pyo3::types::PyModule;
+use pyo3::wrap_pyfunction;
 use pyo3::PyResult;
 use pyo3::Python;
-use pyo3::prelude::pyfunction;
-use pyo3::wrap_pyfunction;
-use pyo3::types::PyModule;
 use pyo3_built::pyo3_built;
 
-#[pyfunction(
-    "*",
-    font_size="None",
-    font_family = "None",
-    fill_color="None",
-    background_color="None",
-    stroke_color="None",
-    stroke_width="None",
-    scale="None",
-    include_backdrop="false",
-    include_styles="true",
-    include_defs="true",
-)]
+#[pyfunction]
+#[pyo3(signature = (
+    text,
+    font_size=None,
+    font_family = None,
+    fill_color=None,
+    background_color=None,
+    stroke_color=None,
+    stroke_width=None,
+    scale=None,
+    include_backdrop=false,
+    include_styles=true,
+    include_defs=true,
+))]
 fn to_svg(
     _py: Python,
     text: &str,
@@ -69,11 +67,11 @@ fn to_svg(
     Ok(svgbob::to_svg_with_settings(text, &settings))
 }
 
-#[cfg_attr(feature = "extension-module", pymodule)]
-#[cfg_attr(feature = "extension-module", pyo3(name = "_svgbob"))]
-pub fn init(py: Python, m: &PyModule) -> PyResult<()> {
+#[cfg_attr(feature = "extension-module", pymodule(name = "_svgbob"))]
+pub fn init(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add("__author__", env!("CARGO_PKG_AUTHORS").replace(':', "\n"))?;
+    #[allow(deprecated)] // pyo3-built needs an update
     m.add("__build__", pyo3_built!(py, built))?;
 
     m.add_function(wrap_pyfunction!(to_svg, m)?)?;

@@ -29,9 +29,9 @@ repository = "althonos/sphinxcontrib-svgbob"
 status     = "passively-maintained"
 
 [dependencies.pyo3]
-version = "0.17.1"
+version = "0.23.3"
 [dependencies.pyo3-built]
-version = "0.4.7"
+version = "0.5.0"
 [dependencies.svgbob]
 version = "0.7.2"
 
