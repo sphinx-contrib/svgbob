@@ -6,7 +6,6 @@ mod built;
 
 use pyo3::PyResult;
 use pyo3::Python;
-use pyo3::prelude::pymodule;
 use pyo3::prelude::pyfunction;
 use pyo3::wrap_pyfunction;
 use pyo3::types::PyModule;

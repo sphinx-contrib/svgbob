@@ -2,7 +2,7 @@
 name = "sphinxcontrib-svgbob"
 version = "0.3.0"
 authors = ["Martin Larralde <martin.larralde@embl.de>"]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 description = "Sphinx extension to convert ASCII diagrams to SVG in with Svgbob."
 repository = "https://github.com/althonos/sphinxcontrib-svgbob"
@@ -15,11 +15,11 @@ build = "build.rs"
 
 [lib]
 path = "lib.rs"
-crate_type = ["cdylib", "rlib"]
+crate-type = ["cdylib", "rlib"]
 
 [build-dependencies.built]
-version = "0.5.1"
-features = ["chrono"]
+version = "0.7.5"
+features = ["chrono", "dependency-tree"]
 
 [badges.travis-ci]
 repository = "althonos/sphinxcontrib-svgbob"
