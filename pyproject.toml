@@ -45,8 +45,8 @@ module-name = "sphinxcontrib.svgbob._svgbob"
 
 [tool.cibuildwheel]
 skip = ["*-musllinux_i686"]
-before-build = "pip install setuptools-rust"
-test-command = "python -m unittest lightmotif.tests -v"
+test-command = "python -m unittest sphinxcontrib.svgbob.tests -v"
+before-build = "pip install maturin"
 build-verbosity = 1
 free-threaded-support = false
 

@@ -1,7 +1,7 @@
 import unittest
-from xml.etree import ElementTree as etree
 
-from sphinxcontrib.svgbob._svgbob import to_svg
+from .._svgbob import to_svg
+
 
 class TestSvgbob(unittest.TestCase):
 

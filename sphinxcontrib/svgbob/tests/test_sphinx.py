@@ -8,7 +8,6 @@ import sphinx.cmd.build
 import sphinx.cmd.quickstart
 
 
-
 class TestSphinx(unittest.TestCase):
 
     @classmethod
