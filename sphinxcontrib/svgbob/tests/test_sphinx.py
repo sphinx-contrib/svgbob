@@ -4,14 +4,10 @@ import tempfile
 import textwrap
 import unittest
 
-try:
-    import sphinx.cmd.build
-    import sphinx.cmd.quickstart
-except ImportError:
-    sphinx = None
+import sphinx.cmd.build
+import sphinx.cmd.quickstart
 
 
-@unittest.skipUnless(sphinx, "Sphinx not available")
 class TestSphinx(unittest.TestCase):
 
     @classmethod

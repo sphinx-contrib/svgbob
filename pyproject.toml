@@ -32,6 +32,9 @@ classifiers = [
     "Topic :: Text Processing",
     "Typing :: Typed",
 ]
+dependencies = [
+    "sphinx"
+]
 
 [project.urls]
 "Bug Tracker" = "https://github.com/sphinx-contrib/svgbob/issues"
