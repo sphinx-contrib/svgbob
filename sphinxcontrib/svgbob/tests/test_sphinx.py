@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 import tempfile
 import textwrap
 import unittest
@@ -33,6 +34,7 @@ class TestSphinx(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.docs_folder)
 
+    @unittest.skipIf(sys.version_info[:2] == (3, 7), "sphinx.builders.linkcheck may not be supported")
     def build(self, builder="html"):
         retcode = sphinx.cmd.build.main([
             "-q",

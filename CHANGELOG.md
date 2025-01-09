@@ -6,11 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.3.1...HEAD
+
+
+## [v0.3.1] - 2025-01-09
+[v0.3.1]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.3.0...v0.3.1
 
 ### Changed
+- Use `maturin` instead of `setuptools-rust` to handle the build process.
 - Bumped `built` dependency from `0.5.1` to `0.7.5`.
 - Bumped `pyo3` dependency from `0.17.1` to `0.23.3`.
+
 
 ## [v0.3.0] - 2024-08-14
 [v0.3.0]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.1...v0.3.0

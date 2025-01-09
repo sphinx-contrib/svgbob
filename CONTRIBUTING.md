@@ -20,13 +20,13 @@ the standard library. Running them requires the extension to be built
 locally:
 
 ```console
-$ python setup.py build_ext --inplace
-$ python -m unittest discover -vv
+$ python -m pip install --no-build-isolation -e . -v
+$ python -m unittest sphinxcontrib.svgbob.tests -vv
 ```
 
 ## Coding guidelines
 
-This project targets Python 3.6 or later.
+This project targets Python 3.7 or later.
 
 ### Type hints
 
