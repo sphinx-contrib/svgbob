@@ -54,6 +54,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-apple-darwin
     - name: Build manylinux wheels
       uses: pypa/cibuildwheel@v2.22.0
       env:
@@ -73,6 +75,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-apple-darwin
     - name: Build manylinux wheels
       uses: pypa/cibuildwheel@v2.22.0
       env:
