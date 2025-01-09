@@ -11,6 +11,7 @@ use pyo3_built::pyo3_built;
 #[pyfunction]
 #[pyo3(signature = (
     text,
+    *,
     font_size=None,
     font_family = None,
     fill_color=None,
@@ -67,7 +68,7 @@ fn to_svg(
     Ok(svgbob::to_svg_with_settings(text, &settings))
 }
 
-#[pymodule(name = "_svgbob")]
+#[pymodule(module = "sphinxcontrib.svgbob", name = "_svgbob")]
 pub fn init(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add("__author__", env!("CARGO_PKG_AUTHORS").replace(':', "\n"))?;
