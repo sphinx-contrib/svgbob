@@ -58,23 +58,6 @@ class vendor(setuptools.Command):
             )
 
 
-
-class sdist(_sdist):
-    """A `sdist` that generates a `pyproject.toml` on the fly.
-    """
-
-    def run(self):
-        # build `pyproject.toml` from `setup.cfg`
-        c = configparser.ConfigParser()
-        c.add_section("build-system")
-        c.set("build-system", "requires", str(self.distribution.setup_requires))
-        c.set("build-system", 'build-backend', '"setuptools.build_meta"')
-        with open("pyproject.toml", "w") as pyproject:
-            c.write(pyproject)
-        # run the rest of the packaging
-        _sdist.run(self)
-
-
 class build_rust(_build_rust):
 
     def run(self):
@@ -132,7 +115,7 @@ class build_rust(_build_rust):
 
 
 setuptools.setup(
-    cmdclass=dict(build_rust=build_rust, sdist=sdist, vendor=vendor),
+    cmdclass=dict(build_rust=build_rust, vendor=vendor),
     rust_extensions=[
         setuptools_rust.RustExtension(
             "sphinxcontrib.svgbob._svgbob",

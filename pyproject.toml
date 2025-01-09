@@ -1,4 +1,61 @@
 [build-system]
-requires = ['setuptools', 'setuptools_rust']
-build-backend = "setuptools.build_meta"
+requires = ["maturin ~=1.2"]
+build-backend = "maturin"
 
+[project]
+name = "sphinxcontrib-svgbob"
+dynamic = ["version"]
+description = "A Sphinx extension to convert ASCII diagrams to SVGs with Svgbob."
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "COPYING" }
+authors = [
+  { name = "Martin Larralde", email = "martin.larralde@embl.de" },
+]
+keywords = ["sphinx", "documentation", "svg", "diagram", "ascii"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Sphinx :: Extension",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Rust",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Text Processing",
+    "Typing :: Typed",
+]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/sphinx-contrib/svgbob/issues"
+"Changelog" = "https://github.com/sphinx-contrib/svgbob/blob/master/CHANGELOG.md"
+"PyPI" = "https://pypi.org/project/sphinxcontrib-svgbob"
+
+[tool.maturin]
+manifest-path = "sphinxcontrib/svgbob/_svgbob/Cargo.toml"
+features = ["extension-module"]
+module-name = "sphinxcontrib.svgbob._svgbob"
+
+[tool.cibuildwheel]
+skip = ["*-musllinux_i686"]
+before-build = "pip install setuptools-rust"
+test-command = "python -m unittest lightmotif.tests -v"
+build-verbosity = 1
+free-threaded-support = false
+
+[tool.cibuildwheel.linux]
+environment = { PATH="$HOME/.cargo/bin:$PATH" }
+before-all = "curl -sSf https://sh.rustup.rs | sh -s -- -y"
+
+[tool.cibuildwheel.macos]
+before-all = [
+  "curl -sSf https://sh.rustup.rs | sh -s -- -y",
+  "rustup target add aarch64-apple-darwin"
+]
