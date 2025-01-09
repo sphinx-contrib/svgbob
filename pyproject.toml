@@ -58,6 +58,7 @@ environment = { PATH="$HOME/.cargo/bin:$PATH" }
 before-all = "curl -sSf https://sh.rustup.rs | sh -s -- -y"
 
 [tool.cibuildwheel.macos]
+environment = { MACOSX_DEPLOYMENT_TARGET = "10.12" }
 before-all = [
   "curl -sSf https://sh.rustup.rs | sh -s -- -y",
   "rustup target add aarch64-apple-darwin"
