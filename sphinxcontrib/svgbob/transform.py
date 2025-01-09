@@ -21,7 +21,7 @@ class SvgbobToImageTransform(sphinx.transforms.SphinxTransform):
 
     def apply(self, **kwargs: typing.Any) -> None:
         source = os.path.dirname(self.document["source"])
-        for node in self.document.traverse(svgbob):
+        for node in self.document.findall(svgbob):
 
             if self.builder_supports_svg():
                 img = image()

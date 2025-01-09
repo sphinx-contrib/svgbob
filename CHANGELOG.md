@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 [Unreleased]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.3.0...HEAD
 
+### Changed
+- Bumped `built` dependency from `0.5.1` to `0.7.5`.
+- Bumped `pyo3` dependency from `0.17.1` to `0.23.3`.
 
 ## [v0.3.0] - 2024-08-14
 [v0.3.0]: https://github.com/althonos/sphinxcontrib-svgbob/compare/v0.2.1...v0.3.0
