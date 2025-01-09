@@ -1,6 +1,4 @@
-setuptools >=41.0
-wheel
-setuptools-rust
+maturin ~=1.2
 requests
 auditwheel
 coverage ~=5.0
