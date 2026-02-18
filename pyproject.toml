@@ -7,7 +7,7 @@ name = "sphinxcontrib-svgbob"
 dynamic = ["version"]
 description = "A Sphinx extension to convert ASCII diagrams to SVGs with Svgbob."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = { file = "COPYING" }
 authors = [
   { name = "Martin Larralde", email = "martin.larralde@embl.de" },
