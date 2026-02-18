@@ -43,7 +43,7 @@ dependencies = [
 
 [tool.maturin]
 manifest-path = "sphinxcontrib/svgbob/_svgbob/Cargo.toml"
-features = ["extension-module"]
+features = ["extension-module", "abi3"]
 module-name = "sphinxcontrib.svgbob._svgbob"
 
 [tool.cibuildwheel]
