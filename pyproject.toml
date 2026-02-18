@@ -51,7 +51,6 @@ skip = ["*-musllinux_i686", "pp*"]
 test-command = "python -m unittest sphinxcontrib.svgbob.tests -v"
 before-build = "pip install maturin"
 build-verbosity = 1
-free-threaded-support = false
 
 [tool.cibuildwheel.linux]
 environment = { PATH="$HOME/.cargo/bin:$PATH" }
